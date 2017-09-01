@@ -28,7 +28,7 @@ window.addEventListener("load", function(evt) {
         $('#tt').html(content)
 
         lines = parts[2].split("\n")
-        lines.push('Last updated at: ' + new Date(parseInt(data.ts, 10) * 1000).toISOString())
+        lines.push('Last updated at: ' + new Date(parseInt(data.ts, 10)).toISOString())
         $('#extra').html("<p>" + lines.join("</p><p>") + "</p>")
     };
 
@@ -39,9 +39,9 @@ window.addEventListener("load", function(evt) {
     var newSocket = function() {
         ws = new WebSocket(wsUri);
         ws.onopen = function(evt) {
-            if ($('#tag').val().length > 0) {
+            if ($('#antid').val().length > 0) {
                 var req = {
-                    info: $('#tag').val()
+                    info: $('#antid').val()
                 }
                 ws.send(JSON.stringify(req))
             }

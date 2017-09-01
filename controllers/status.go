@@ -4,7 +4,6 @@ import (
 	"context"
 	"io"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/astaxie/beego"
@@ -26,11 +25,11 @@ type StatusController struct {
 	baseController
 }
 
-func (this *StatusController) Get() {
-	tag := this.GetString("tag")
+func (this *StatusController) ById() {
+	antId := this.Ctx.Input.Param(":id")
 
 	this.TplName = "status.tpl"
-	this.Data["Tag"] = tag
+	this.Data["AntId"] = antId
 }
 
 func (this *StatusController) Stream() {
@@ -50,12 +49,6 @@ func (this *StatusController) Stream() {
 		return
 	}
 
-	infos := strings.Split(req.Info, ",")
-	if len(infos) < 3 {
-		beego.Error("invalid request")
-		return
-	}
-
 	go func() {
 		for {
 			if _, _, err := ws.NextReader(); err != nil {
@@ -65,9 +58,7 @@ func (this *StatusController) Stream() {
 	}()
 
 	ctx := metadata.NewContext(context.Background(), map[string]string{
-		"X-User-Id":    infos[0],
-		"X-Host":       infos[1],
-		"X-Process-Id": infos[2],
+		"Ant-Id": req.Info,
 	})
 	stream, err := cli.Status(ctx, &req)
 	if err != nil {

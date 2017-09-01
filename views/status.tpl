@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="input-group">
-                <input id="tag" type="text" class="form-control" placeholder="type TAG here..." aria-label="type TAG here..." value="{{ .Tag }}"/>
+                <input id="antid" type="text" class="form-control" placeholder="type AntId here..." aria-label="type AntId here..." value="{{ .AntId }}"/>
                 <span class="input-group-btn"><button id="btn-go" class="btn btn-secondary" type="button">Go!</button></span>
             </div>
         </div>
