@@ -7,6 +7,7 @@ import (
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
-	beego.Router("/status/:id([0-9]+)", &controllers.StatusController{}, "get:ById")
-	beego.Router("/status/stream", &controllers.StatusController{}, "get:Stream")
+	beego.Router("/ant/:id([0-9]+)", &controllers.AntController{}, "get:ById")
+	beego.Router("/ant/stream", &controllers.AntController{}, "get:Stream")
+	beego.Router("/ant/cmd", &controllers.AntController{}, "post:DoCmd")
 }
